@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="پورتفولیوی دانشگاهی پروژه‌ها و پژوهش‌های جغرافیا">
+  <title>پورتفولیوی جغرافیا | پروژه‌های دانشگاهی</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --forest:#244b3b; --green:#47765b; --sage:#dce9df; --mint:#eef5ef;
+      --cream:#faf9f4; --paper:#fffefa; --ink:#26352d; --muted:#748078;
+      --line:#e4e9e2; --gold:#c49a56; --shadow:0 12px 34px rgba(34,68,49,.08);
+      --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--cream);color:var(--ink);font-family:"Vazirmatn",Tahoma,sans-serif;line-height:1.9}
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    .container{width:min(1120px,calc(100% - 40px));margin:auto}
+    .topbar{background:var(--forest);color:#eaf2eb;font-size:13px;padding:8px 0}
+    .topbar .container{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    header{position:sticky;top:0;z-index:20;background:rgba(250,249,244,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;color:var(--forest)}
+    .brand-mark{width:42px;height:42px;border-radius:14px;background:var(--forest);color:white;display:grid;place-items:center;font-size:21px}
+    .navlinks{display:flex;gap:24px;align-items:center;font-size:14px;color:#526158}
+    .navlinks a:hover{color:var(--green)}
+    .nav-cta{background:var(--forest);color:white;padding:10px 17px;border-radius:12px;font-size:13px}
+    .hero{padding:76px 0 66px;background:radial-gradient(circle at 12% 20%,#e5eee5 0,transparent 32%),linear-gradient(135deg,#f8f8f1,#edf4ed)}
+    .hero-grid{display:grid;grid-template-columns:1.3fr .7fr;align-items:center;gap:48px}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;color:var(--green);font-weight:700;font-size:13px;background:#e4eee5;padding:6px 13px;border-radius:30px}
+    h1{font-size:clamp(34px,5vw,55px);line-height:1.45;color:var(--forest);margin:18px 0 14px;letter-spacing:-1.3px}
+    .hero p{color:#65736a;max-width:620px;margin:0 0 26px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:13px;font-weight:600;font-size:14px;border:1px solid var(--forest);transition:.2s}
+    .btn.primary{background:var(--forest);color:white}.btn.secondary{color:var(--forest);background:transparent}
+    .btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+    .hero-art{min-height:280px;border-radius:30px;background:var(--forest);padding:25px;position:relative;overflow:hidden;box-shadow:var(--shadow);color:white}
+    .hero-art:before,.hero-art:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.22);border-radius:50%;width:260px;height:260px;left:-55px;top:55px}
+    .hero-art:after{width:190px;height:190px;left:-20px;top:90px}
+    .contour{position:absolute;inset:0;opacity:.28;background:repeating-radial-gradient(ellipse at 15% 60%,transparent 0 18px,#dce9df 19px 20px,transparent 21px 34px)}
+    .art-content{position:relative;z-index:1;max-width:230px}
+    .art-content .big{font-size:58px;line-height:1.3}.art-content strong{display:block;font-size:19px}.art-content small{color:#cbd9cd}
+    .art-tag{position:absolute;bottom:24px;right:25px;background:#ffffff1b;border:1px solid #ffffff35;padding:8px 12px;border-radius:12px;font-size:12px}
+    section{padding:66px 0}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:26px}
+    .kicker{color:var(--green);font-size:12px;font-weight:800;letter-spacing:.4px}
+    h2{color:var(--forest);font-size:27px;margin:3px 0 0}
+    .section-head p{margin:0;color:var(--muted);font-size:13px;max-width:430px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:-27px;position:relative;z-index:2}
+    .stat{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:19px 22px;box-shadow:var(--shadow)}
+    .stat strong{display:block;font-size:27px;color:var(--forest);line-height:1.4}.stat span{font-size:12px;color:var(--muted)}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}
+    .about-card{background:var(--mint);border-radius:var(--radius);padding:28px;border:1px solid #e1ebe1}
+    .about-card h3{margin:0 0 10px;color:var(--forest)}
+    .about-card p{margin:0;color:#66746b;font-size:14px}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .chip{background:white;border:1px solid #dce8dd;color:#55705e;border-radius:30px;padding:5px 11px;font-size:11px}
+    .project-tools{display:flex;gap:10px;align-items:center}
+    .search{border:1px solid var(--line);background:white;border-radius:12px;padding:9px 13px;width:210px;outline:none}
+    .search:focus{border-color:var(--green)}
+    .filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+    .filter{border:1px solid var(--line);background:white;color:#66746b;border-radius:30px;padding:6px 13px;font-size:12px;cursor:pointer}
+    .filter.active{background:var(--forest);color:white;border-color:var(--forest)}
+    .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .project{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.2s}
+    .project:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .project-cover{height:145px;background:linear-gradient(135deg,#dce9df,#a9c5ae);display:grid;place-items:center;font-size:45px;position:relative}
+    .project-cover.gold{background:linear-gradient(135deg,#f0e8d7,#d8c49b)}
+    .project-cover.blue{background:linear-gradient(135deg,#dce9e8,#a8c8c3)}
+    .project-cover span{position:absolute;bottom:12px;right:14px;background:#ffffffc9;color:var(--forest);font-size:10px;padding:3px 9px;border-radius:20px}
+    .project-body{padding:17px}
+    .project-body h3{font-size:16px;color:var(--forest);margin:0 0 6px}
+    .project-body p{font-size:12px;color:var(--muted);margin:0 0 14px}
+    .project-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:11px;font-size:11px;color:#829087}
+    .project-foot a{color:var(--green);font-weight:700}
+    .data-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+    .panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 5px 20px rgba(34,68,49,.035)}
+    .panel h3{font-size:16px;color:var(--forest);margin:0 0 4px}
+    .panel .sub{font-size:11px;color:var(--muted);margin:0 0 18px}
+    .chart-wrap{height:245px;position:relative}
+    table{width:100%;border-collapse:collapse;font-size:12px}
+    th{background:var(--mint);color:var(--forest);font-weight:700}
+    th,td{padding:11px 10px;text-align:right;border-bottom:1px solid var(--line)}
+    tbody tr:last-child td{border-bottom:0}
+    .map-panel{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center}
+    .map-placeholder{height:250px;border-radius:15px;background:linear-gradient(135deg,#e6eee4,#d5e3d4);display:grid;place-items:center;text-align:center;color:var(--forest);padding:20px;border:1px dashed #a9c2aa}
+    .map-placeholder .map-icon{font-size:45px}
+    .map-placeholder p{font-size:12px;max-width:280px;margin:8px auto}
+    .map-placeholder code{font-size:10px;background:#ffffffb8;padding:5px 8px;border-radius:6px;direction:ltr;display:inline-block}
+    .resource-list{display:grid;gap:12px;margin-top:16px}
+    .resource{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:13px;background:white}
+    .resource-icon{width:38px;height:38px;background:var(--mint);border-radius:11px;display:grid;place-items:center}
+    .resource strong{display:block;font-size:13px;color:var(--forest)}.resource small{font-size:11px;color:var(--muted)}
+    .contact{background:var(--forest);color:white;padding:48px 0}
+    .contact-inner{display:flex;justify-content:space-between;align-items:center;gap:25px}
+    .contact h2{color:white}.contact p{color:#c9d8cc;font-size:13px;margin:6px 0 0}
+    .contact .btn{border-color:#dce9df;color:var(--forest);background:#eef5ef;white-space:nowrap}
+    footer{background:#1b3a2d;color:#b9cbbd;padding:18px 0;font-size:11px}
+    footer .container{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    @media(max-width:800px){.hero-grid,.about-grid,.data-grid,.map-panel{grid-template-columns:1fr}.hero-art{min-height:230px}.project-grid{grid-template-columns:repeat(2,1fr)}.navlinks{gap:12px}.navlinks a:nth-child(n+4){display:none}}
+    @media(max-width:560px){.container{width:min(100% - 28px,1120px)}.nav{min-height:65px}.navlinks{display:none}.hero{padding:48px 0}.stats{grid-template-columns:1fr;gap:9px;margin-top:-15px}.stat{padding:13px 17px}.stat strong{font-size:22px}.project-grid{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.project-tools{width:100%}.search{width:100%}.contact-inner{align-items:start;flex-direction:column}section{padding:48px 0}}
+  </style>
+</head>
+<body>
+  <div class="topbar"><div class="container"><span>پورتفولیوی دانشگاهی · مطالعات جغرافیا</span><span>پژوهش، تحلیل داده و نقشه‌سازی</span></div></div>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home"><span class="brand-mark">⌖</span><span>دفتر جغرافیا</span></a>
+      <nav class="navlinks">
+        <a href="#about">درباره</a><a href="#projects">پروژه‌ها</a><a href="#data">داده‌ها</a><a href="#maps">نقشه‌ها</a>
+      </nav>
+      <a class="nav-cta" href="#contact">ارتباط با من</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">🌿 پورتفولیوی علمی و آموزشی</span>
+          <h1>نگاهی داده‌محور<br>به جهان پیرامون</h1>
+          <p>اینجا مجموعه‌ای از پروژه‌ها، تمرین‌ها و پژوهش‌های دانشگاهی در حوزه جغرافیا را می‌بینید؛ از تحلیل داده‌های مکانی و نمودارهای آماری تا نقشه‌ها و گزارش‌های پژوهشی.</p>
+          <div class="actions"><a class="btn primary" href="#projects">مشاهده پروژه‌ها</a><a class="btn secondary" href="#about">آشنایی بیشتر</a></div>
+        </div>
+        <div class="hero-art"><div class="contour"></div><div class="art-content"><div class="big">⌖</div><strong>جغرافیا؛ پیوند مکان و داده</strong><small>Geography · Research · GIS</small></div><div class="art-tag">پژوهش‌های دانشگاهی من</div></div>
+      </div>
+    </section>
+
+    <div class="container stats">
+      <div class="stat"><strong>۰۶</strong><span>پروژه و تمرین پژوهشی</span></div>
+      <div class="stat"><strong>۰۴</strong><span>نقشه و تحلیل مکانی</span></div>
+      <div class="stat"><strong>۱۲</strong><span>نمودار و مجموعه‌داده</span></div>
+    </div>
+
+    <section id="about">
+      <div class="container about-grid">
+        <div><span class="kicker">درباره این وب‌سایت</span><h2>یادگیری، تحلیل و به‌اشتراک‌گذاری</h2>
+          <p style="color:var(--muted);font-size:14px">این وب‌سایت برای مستندسازی مسیر یادگیری و انتشار منظم فعالیت‌های علمی طراحی شده است. هر پروژه می‌تواند شامل توضیحات، فایل‌های قابل دریافت، جدول‌های داده، نمودارها و نقشه‌های تعاملی باشد.</p>
+          <div class="chips"><span class="chip">جغرافیای انسانی</span><span class="chip">جغرافیای طبیعی</span><span class="chip">GIS</span><span class="chip">آمار و تحلیل</span></div>
+        </div>
+        <div class="about-card"><h3>راهنمای استفاده از آرشیو</h3><p>از بخش پروژه‌ها موضوع موردنظر را انتخاب کنید. برای هر پروژه می‌توانید یک صفحه جداگانه بسازید و گزارش کامل، منابع، تصاویر و داده‌های خام را در آن قرار دهید. فایل‌ها را با لینک مستقیم در دسترس هم‌کلاسی‌ها قرار دهید.</p></div>
+      </div>
+    </section>
+
+    <section id="projects" style="background:#f2f5ef">
+      <div class="container">
+        <div class="section-head"><div><span class="kicker">آرشیو مطالعات</span><h2>پروژه‌ها و تکالیف</h2></div><div class="project-tools"><input class="search" id="search" type="search" placeholder="جست‌وجوی پروژه..."></div></div>
+        <div class="filters">
+          <button class="filter active" data-filter="all">همه</button><button class="filter" data-filter="gis">سامانه اطلاعات جغرافیایی</button><button class="filter" data-filter="human">جغرافیای انسانی</button><button class="filter" data-filter="physical">جغرافیای طبیعی</button><button class="filter" data-filter="statistics">آمار و داده</button>
+        </div>
+        <div class="project-grid" id="projectGrid">
+          <article class="project" data-category="gis"><div class="project-cover"><span>GIS</span>🗺️</div><div class="project-body"><h3>تحلیل فضایی کاربری اراضی</h3><p>نمونه‌ای برای معرفی روش تحلیل لایه‌های مکانی و بررسی تغییرات کاربری زمین.</p><div class="project-foot"><span>پروژه کلاسی · ۱۴۰۵</span><a href="#contact">مشاهده جزئیات ←</a></div></div></article>
+          <article class="project" data-category="human"><div class="project-cover gold"><span>جغرافیای انسانی</span>🏙️</div><div class="project-body"><h3>بررسی الگوی پراکنش جمعیت</h3><p>تحلیل شاخص‌های جمعیتی و عوامل مؤثر بر تمرکز و پراکندگی جمعیت.</p><div class="project-foot"><span>گزارش پژوهشی</span><a href="#contact">مشاهده جزئیات ←</a></div></div></article>
+          <article class="project" data-category="physical"><div class="project-cover blue"><span>جغرافیای طبیعی</span>⛰️</div><div class="project-body"><h3>تحلیل ویژگی‌های توپوگرافی</h3><p>معرفی ارتفاع، شیب و جهت دامنه و کاربرد آن‌ها در تحلیل محیطی.</p><div class="project-foot"><span>تمرین تحلیلی</span><a href="#contact">مشاهده جزئیات ←</a></div></div></article>
+          <article class="project" data-category="statistics"><div class="project-cover gold"><span>آمار</span>📊</div><div class="project-body"><h3>تحلیل داده‌های اقلیمی</h3><p>مقایسه میانگین دما و بارش و نمایش تغییرات در قالب نمودار.</p><div class="project-foot"><span>تحلیل داده</span><a href="#data">دیدن نمونه داده ←</a></div></div></article>
+          <article class="project" data-category="gis"><div class="project-cover"><span>نقشه‌سازی</span>🌐</div><div class="project-body"><h3>تهیه نقشه موضوعی</h3><p>نمونه‌ای از طراحی نقشه، انتخاب نمادها و تنظیمات خروجی نهایی.</p><div class="project-foot"><span>تمرین GIS</span><a href="#maps">دیدن نقشه‌ها ←</a></div></div></article>
+          <article class="project" data-category="human"><div class="project-cover blue"><span>پژوهش</span>📍</div><div class="project-body"><h3>دسترسی فضایی به خدمات</h3><p>بررسی توزیع خدمات و سنجش تفاوت دسترسی در سطح محله‌ها.</p><div class="project-foot"><span>مطالعه موردی</span><a href="#contact">مشاهده جزئیات ←</a></div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="data">
+      <div class="container">
+        <div class="section-head"><div><span class="kicker">نمایش داده</span><h2>نمودارها و جدول‌های آماری</h2></div><p>این بخش یک نمونه نمایشی است؛ اعداد را با داده‌های واقعی پروژه خودت جایگزین کن.</p></div>
+        <div class="data-grid">
+          <div class="panel"><h3>میانگین دمای ماهانه</h3><p class="sub">نمونه داده فرضی · درجه سانتی‌گراد</p><div class="chart-wrap"><canvas id="climateChart" aria-label="نمودار میانگین دمای ماهانه"></canvas></div></div>
+          <div class="panel"><h3>جدول نمونه داده‌ها</h3><p class="sub">قابل جایگزینی با داده‌های پژوهش</p><table><thead><tr><th>ماه</th><th>دما (°C)</th><th>بارش (mm)</th></tr></thead><tbody><tr><td>فروردین</td><td>۱۷</td><td>۴۲</td></tr><tr><td>اردیبهشت</td><td>۲۲</td><td>۲۸</td></tr><tr><td>خرداد</td><td>۲۸</td><td>۸</td></tr><tr><td>تیر</td><td>۳۲</td><td>۲</td></tr><tr><td>مرداد</td><td>۳۱</td><td>۱</td></tr></tbody></table></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="maps" style="background:#f2f5ef">
+      <div class="container">
+        <div class="section-head"><div><span class="kicker">اطلاعات مکانی</span><h2>نقشه‌ها و خروجی‌های GIS</h2></div></div>
+        <div class="panel map-panel">
+          <div class="map-placeholder"><div><div class="map-icon">🗺️</div><strong>محل نمایش نقشه تعاملی</strong><p>لینک Embed نقشه منتشرشده در ArcGIS Online یا سرویس نقشه خودت را جایگزین این بخش کن.</p><code>نقشه ← Share ← Embed</code></div></div>
+          <div><h3>آرشیو نقشه‌های پژوهشی</h3><p class="sub">برای هر نقشه، عنوان، محدوده جغرافیایی، داده‌های استفاده‌شده و روش تهیه را توضیح بده.</p>
+            <div class="resource-list">
+              <div class="resource"><span class="resource-icon">📌</span><div><strong>نقشه موقعیت محدوده مطالعه</strong><small>نقشه پایه و معرفی محدوده</small></div></div>
+              <div class="resource"><span class="resource-icon">⛰️</span><div><strong>نقشه ارتفاع و شیب</strong><small>تحلیل رقومی زمین</small></div></div>
+              <div class="resource"><span class="resource-icon">🌱</span><div><strong>نقشه کاربری اراضی</strong><small>طبقه‌بندی و تحلیل پوشش زمین</small></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact"><div class="container contact-inner"><div><span class="kicker" style="color:#b7d0bb">ارتباط و همکاری علمی</span><h2>برای گفت‌وگو درباره پروژه‌ها</h2><p>ایمیل یا راه ارتباطی خودت را در این قسمت قرار بده.</p></div><a class="btn" href="mailto:your-email@example.com">ارسال ایمیل</a></div></section>
+  </main>
+  <footer><div class="container"><span>© ۱۴۰۵ · دفتر جغرافیا</span><span>طراحی‌شده برای مستندسازی پروژه‌های دانشگاهی</span></div></footer>
+
+  <script>
+    // فیلتر و جست‌وجوی کارت‌های پروژه
+    const filters = document.querySelectorAll('.filter');
+    const cards = document.querySelectorAll('.project');
+    const search = document.getElementById('search');
+    let active = 'all';
+    function updateProjects(){
+      const term = search.value.trim().toLocaleLowerCase('fa');
+      cards.forEach(card => {
+        const matchesCategory = active === 'all' || card.dataset.category === active;
+        const matchesText = card.innerText.toLocaleLowerCase('fa').includes(term);
+        card.style.display = matchesCategory && matchesText ? '' : 'none';
+      });
+    }
+    filters.forEach(btn => btn.addEventListener('click', () => {
+      filters.forEach(item => item.classList.remove('active'));
+      btn.classList.add('active'); active = btn.dataset.filter; updateProjects();
+    }));
+    search.addEventListener('input', updateProjects);
+
+    // نمودار نمونه؛ داده‌ها را با اطلاعات واقعی خودت جایگزین کن.
+    if (window.Chart) {
+      Chart.defaults.font.family = 'Vazirmatn, Tahoma, sans-serif';
+      Chart.defaults.color = '#748078';
+      new Chart(document.getElementById('climateChart'), {
+        type: 'line',
+        data: {
+          labels: ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور'],
+          datasets: [{
+            label: 'میانگین دما',
+            data: [17,22,28,32,31,27],
+            borderColor: '#47765b',
+            backgroundColor: 'rgba(71,118,91,.12)',
+            fill: true, tension: .35, borderWidth: 3,
+            pointRadius: 4, pointBackgroundColor: '#244b3b'
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: false, grid: { color: '#edf0eb' }, title: {display:true,text:'درجه سانتی‌گراد'} },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
